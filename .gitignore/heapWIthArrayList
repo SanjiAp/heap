@@ -1,0 +1,83 @@
+//WORK IN PROGRESS
+class MaxHeap{
+	    Number []heap;
+	    int size;
+	    MaxHeap(int size){
+	        //this.size = size;
+	        heap = new Number[size];
+	    }
+	    void offer(Number a){
+	        if(size == 0){
+	            heap[0] = a;
+	            size++;
+	            return 0;
+	        }else{
+	            heap[size] = a;
+	            int pos = bottomUpHeapify(size);
+	            return pos;
+	        }
+	    }
+	    void delete(Number a,int pos){
+	        
+	    }
+	    boolean isLeftChild(int i){
+	        if(i % 2 != 0){
+	            return true;
+	        }
+	        return false;
+	    }
+	    boolean isSafe(int i){
+	        if(i >= 0){
+	            return true;
+	        }
+	        return false;
+	    }
+	    int bottomUpHeapify(int i){
+	        
+	        while(i > 0){
+	            if(isLeftChild(i) && isSafe(i/2) && heap[i].num > heap[i/2].num){
+	                Number temp = heap[i/2];
+	                heap[i/2] = heap[i];
+	                heap[i] = temp;
+	                i = i / 2;
+	                     
+	            }else if(isSafe(i/2 - 1) && heap[i].num > heap[i/2 - 1].num){
+	                Number temp = heap[i/2 - 1];
+	                heap[i/2 - 1] = heap[i];
+	                heap[i] = temp;
+	                i = i/2 - 1;
+	            }else break;
+	           if(i == 0){
+	               break;
+	           }
+	        }
+	        return i;
+	    }
+	    
+	    boolean isSafeDown(int i){
+	        if(i <= size){
+	            return true;
+	        }
+	        return false;
+	    }
+	    void topDownHeapify(int i){
+	        
+	        while(i <= size){
+	            if(isSafeDown(i*2 + 1) && heap[i].num < heap[i*2 + 1].num){
+	                Number temp = heap[i*2+1];
+	                heap[i*2+1] = heap[i];
+	                heap[i] = temp;
+	                i = i*2 + 1;
+	                     
+	            }else if(isSafeDown(i*2 + 2) && heap[i].num < heap[i*2 + 2].num){
+	                Number temp = heap[i*2 + 1];
+	                heap[i*2 + 2] = heap[i];
+	                heap[i] = temp;
+	                i = i*2 + 2;
+	            }else break;
+	           if(i == size){
+	               break;
+	           }
+	        }
+	    }
+	}
